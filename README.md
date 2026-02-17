@@ -50,8 +50,6 @@
 - 👯 view my projects [SimonSaysGame](https://dk5847001-stack.github.io/simon-says-gme/)
 
 - 👨‍💻 All of my projects are available at [dilkhush200.netlify.app](dilkhush200.netlify.app)
-
-<h3 align="left">Connect with me:</h3>
 <p align="left">
 </p>
 
