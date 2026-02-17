@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Says Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            text-shadow: 0 10px 30px black;
+            color: beige;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            background: linear-gradient(270deg,
+                    #660134,
+                    #3d0179,
+                    #016b5d,
+                    #014077,
+                    #017c63);
+
+            background-size: 800% 800%;
+            animation: gradientMove 10s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .btn-container {
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 200px;
+            height: 200px;
+            border: 6px solid black;
+            border-radius: 10px;
+        }
+
+        /* .btn:nth-child(1){
+            background-color: yellowgreen;
+        }
+        .btn:nth-child(2){
+            background-color: red;
+        }
+        .btn:nth-child(3){
+            background-color: yellow;
+        }
+        .btn:nth-child(4){
+            background-color: blueviolet;
+        } */
+        .yellow {
+            background-color: yellow;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .purple {
+            background-color: purple;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .flash {
+            background-color: white;
+            box-shadow: 0 10px 30px white;
+            animation: identifier .2s linear;
+            transition: all .2s;
+        }
+
+        .userflash {
+            background-color: greenyellow;
+        }
+
+        @keyframes identifier {
+            0% {
+                transform: translateX(-5px);
+                scale: calc(1.02);
+            }
+
+            30% {
+                transform: translateX(5px);
+                scale: calc(1.04);
+            }
+
+            60% {
+                transform: translateX(-5px);
+                scale: calc(1.06);
+            }
+
+            90% {
+                transform: translateX(5px);
+                scale: calc(1.08);
+            }
+
+            100% {
+                transform: translateX(-5px);
+                scale: calc(1.19);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Simon Says Game</h1>
+    <h2>Press any key to start the game</h2>
+    <div class="btn-container">
+        <div class="btn yellow" type="button" id="yellow"></div>
+        <div class="btn red" type="button" id="red"></div>
+        <div class="btn purple" type="button" id="purple"></div>
+        <div class="btn green" type="button" id="green"></div>
+    </div>
+    <audio id="clickSound">
+        <source src="sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ************************************************************** -->
+    <script>
+        let gameSeq = [];
+        let userSeq = [];
+
+        let btns = ["yellow", "red", "purple", "green"];
+
+        let started = false;
+        let level = 0;
+
+        let h2 = document.querySelector("h2");
+
+
+        document.addEventListener("click", function () {
+            if (started == false) {
+                console.log('Game satarted!');
+                started = true;
+
+                levelUp();
+            }
+        });
+
+        function gameFlash(btn) {
+            btn.classList.add("flash")
+            setTimeout(function () {
+                btn.classList.remove("flash");
+            }, 200);
+        }
+        function userflash(btn) {
+            btn.classList.add("userflash")
+            setTimeout(function () {
+                btn.classList.remove("userflash");
+            }, 200);
+        }
+
+        function levelUp() {
+            userSeq = [];
+            level++;
+            h2.innerHTML = `Level ${level}`;
+
+            let randIdx = Math.floor(Math.random() * 4);
+            let randColor = btns[randIdx];
+            let randBtn = document.querySelector(`.${randColor}`);
+            gameSeq.push(randColor);
+            console.log(gameSeq);
+
+            gameFlash(randBtn);
+        }
+
+        function checkAns(idx) {
+            console.log('curr level: ', level);
+            // let idx = level -1;
+            if (userSeq[idx] === gameSeq[idx]) {
+                if (userSeq.length == gameSeq.length) {
+                    setTimeout(levelUp, 1000);
+                }
+
+            } else {
+                h2.innerHTML = `Game Over! your score was <b>${level}</b><br> Press any key to start`;
+                h2.style.color = "red";
+                setTimeout(() => {
+                    h2.style.color = "white";
+                }, 2000);
+                reset();
+                document.querySelector("body").style.backgroundColor = "red";
+                setTimeout(() => {
+                    document.querySelector("body").style.backgroundColor = "gray";
+                }, 200);
+            }
+        }
+
+        function btnPress() {
+            let btn = this;
+            userflash(btn)
+            document.getElementById("clickSound").play();
+            userColor = btn.getAttribute("id");
+            userSeq.push(userColor);
+            checkAns(userSeq.length - 1);
+        }
+
+        let allBtns = document.querySelectorAll(".btn");
+        for (btn of allBtns) {
+            btn.addEventListener("click", btnPress);
+        }
+
+        function reset() {
+            started = false;
+            gameSeq = [];
+            userSeq = [];
+            level = 0;
+        }
+    </script>
+</body>
+
+</html>
