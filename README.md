@@ -45,6 +45,16 @@
 
 ###
 
+<h3 align="center">A passionate frontend developer from India</h3>
+
+- 👯 view my projects [SimonSaysGame](https://dk5847001-stack.github.io/simon-says-gme/)
+
+- 👨‍💻 All of my projects are available at [dilkhush200.netlify.app](dilkhush200.netlify.app)
+
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+</p>
+
 <h4 align="left">🎮How to start the game:<br>   ➡️ Click any colors or body to start the game.</h4>
 
 ###
