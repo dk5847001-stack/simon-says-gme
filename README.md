@@ -47,7 +47,7 @@
 
 <h3 align="center">A passionate frontend developer from India</h3>
 
-- 👯 view my projects [Live Preview](https://dk5847001-stack.github.io/simon-says-gme/)
+- 👯 view my projects [👁️Live Preview](https://dk5847001-stack.github.io/simon-says-gme/)
 
 - 👨‍💻 All of my projects are available at [dilkhush200.netlify.app](dilkhush200.netlify.app)
 <p align="left">
