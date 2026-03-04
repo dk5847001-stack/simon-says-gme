@@ -9,7 +9,6 @@
 </div>
 
 ###
-
 <h1 align="center">Simon Says Game</h1>
 
 ###
